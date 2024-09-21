@@ -178,7 +178,8 @@ Download
 
 ---
 
-[![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://play.google.com/store/apps/details?id=com.twitter.android)
+[![Twitter](https://img.shields.io/badge/Twitter-ffffff?style=for-the-badge&logo=x&logoColor=000000
+)](https://play.google.com/store/apps/details?id=com.twitter.android)
 
 ### [Piko:](https://github.com/crimera/piko)
 
