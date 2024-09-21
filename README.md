@@ -198,7 +198,8 @@ Download
 
 ---
 
-### [Google Photos:](https://play.google.com/store/apps/details?id=com.google.android.apps.photos)
+[![Google Photos](https://img.shields.io/badge/Google_Photos-ffd966?style=for-the-badge&logo=googlephotos&logoColor=000000
+)](https://play.google.com/store/apps/details?id=com.google.android.apps.photos)
 
 ### Revanced:
 
