@@ -7,7 +7,7 @@ wget -q -O ./pup.zip https://github.com/ericchiang/pup/releases/download/v0.4.0/
 unzip "./pup.zip" -d "./" > /dev/null 2>&1
 pup="./pup"
 #Setup APKEditor for install combine split apks
-wget -q -O ./APKEditor.jar https://github.com/REAndroid/APKEditor/releases/download/V1.4.1/APKEditor-1.4.1.jar
+wget -q -O ./APKEditor.jar https://github.com/REAndroid/APKEditor/releases/download/V1.4.2/APKEditor-1.4.2.jar
 APKEditor="./APKEditor.jar"
 
 #################################################
@@ -136,13 +136,13 @@ get_patches_key() {
 # Download apks files from APKMirror:
 _req() {
     if [ "$2" = "-" ]; then
-        wget -nv -O "$2" --header="$3" "$1" || rm -f "$2"
+        wget -nv -O "$2" --header="User-Agent: Mozilla/5.0 (Android 14; Mobile; rv:134.0) Gecko/134.0 Firefox/134.0" --header="Content-Type: application/octet-stream" --header="Accept-Language: en-US,en;q=0.9" --header="Connection: keep-alive" --header="Upgrade-Insecure-Requests: 1" --header="Cache-Control: max-age=0" --header="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" --keep-session-cookies --timeout=30 "$1" || rm -f "$2"
     else
-        wget -nv -O "./download/$2" --header="$3" "$1" || rm -f "./download/$2"
+        wget -nv -O "./download/$2" --header="User-Agent: Mozilla/5.0 (Android 14; Mobile; rv:134.0) Gecko/134.0 Firefox/134.0" --header="Content-Type: application/octet-stream" --header="Accept-Language: en-US,en;q=0.9" --header="Connection: keep-alive" --header="Upgrade-Insecure-Requests: 1" --header="Cache-Control: max-age=0" --header="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" --keep-session-cookies --timeout=30 "$1" || rm -f "./download/$2"
     fi
 }
 req() {
-    _req "$1" "$2" "User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.58 Mobile Safari/537.36"
+    _req "$1" "$2"
 }
 dl_apk() {
 	local url=$1 regexp=$2 output=$3
@@ -214,7 +214,8 @@ get_apk() {
 	local attempt=0
 	while [ $attempt -lt 10 ]; do
 		if [[ -z $version ]] || [ $attempt -ne 0 ]; then
-			version=$(req "https://www.apkmirror.com/uploads/?appcategory=$3" - | \
+			local upload_tail="?$([[ $3 = duolingo ]] && echo devcategory= || echo appcategory=)"
+			version=$(req "https://www.apkmirror.com/uploads/$upload_tail$3" - | \
 				$pup 'div.widget_appmanager_recentpostswidget h5 a.fontBlack text{}' | \
 				grep -Evi 'alpha|beta' | \
 				grep -oPi '\b\d+(\.\d+)+(?:\-\w+)?(?:\.\d+)?(?:\.\w+)?\b' | \
@@ -250,6 +251,45 @@ get_apk() {
 		java -jar $APKEditor m -i ./download/$2.apkm -o ./download/$2.apk > /dev/null 2>&1
 	elif [[ $5 == "Bundle_extract" ]]; then
 		unzip "./download/$base_apk" -d "./download/$(basename "$base_apk" .apkm)" > /dev/null 2>&1
+	fi
+}
+get_apkpure() {
+	if [ -z "$version" ] && [ "$lock_version" != "1" ]; then
+		if [[ $(ls revanced-cli-*.jar) =~ revanced-cli-([0-9]+) ]]; then
+			num=${BASH_REMATCH[1]}
+			if [ $num -ge 5 ]; then
+				version=$(java -jar *cli*.jar list-patches --with-packages --with-versions *.rvp | awk -v pkg="$1" 'BEGIN { found = 0 } /^Index:/ { found = 0 } /Package name: / { if ($3 == pkg) { found = 1 } } /Compatible versions:/ { if (found) { getline; latest_version = $1; while (getline && $1 ~ /^[0-9]+\./) { latest_version = $1 } print latest_version; exit } }')
+			else
+				version=$(jq -r '[.. | objects | select(.name == "'$1'" and .versions != null) | .versions[]] | reverse | .[0] // ""' *.json | uniq)
+			fi
+		fi
+	fi
+	export version="$version"
+	if [[ $4 == "Bundle" ]] || [[ $4 == "Bundle_extract" ]]; then
+		local base_apk="$2.xapk"
+	else
+		local base_apk="$2.apk"
+	fi
+	if [[ -n "$version" ]]; then
+		url="https://apkpure.com/$3/downloading/$version"
+	else
+		url="https://apkpure.com/$3/downloading/"
+		version="$(req "$url" - | awk -F'Download APK | \\(' '/<h2>/{print $2}')"
+	fi
+	green_log "[+] Downloading $2 version: $version $4"
+	url="$(req "$url" - | grep -oP '<a[^>]+id="download_link"[^>]+href="\Khttps://[^"]+')"
+	req "$url" "$base_apk"
+	if [[ -f "./download/$base_apk" ]]; then
+		green_log "[+] Successfully downloaded $2"
+	else
+		red_log "[-] Failed to download $2"
+		exit 1
+	fi
+	if [[ $4 == "Bundle" ]]; then
+		green_log "[+] Merge splits apk to standalone apk"
+		java -jar $APKEditor m -i ./download/$2.xapk -o ./download/$2.apk > /dev/null 2>&1
+	elif [[ $4 == "Bundle_extract" ]]; then
+		unzip "./download/$base_apk" -d "./download/$(basename "$base_apk" .xapk)" > /dev/null 2>&1
 	fi
 }
 
@@ -344,7 +384,7 @@ split_arch() {
 		eval java -jar revanced-cli*.jar patch \
 		-p *.rvp \
 		$3 \
-		--keystore=./src/_ks.keystore \
+		--keystore=./src/_ks.keystore --force \
 		--legacy-options=./src/options/$2.json $excludePatches$includePatches \
 		--out=./release/$1-${archs[i]}-$2.apk\
 		./download/$1.apk

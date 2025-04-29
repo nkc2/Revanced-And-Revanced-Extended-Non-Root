@@ -25,8 +25,9 @@ Simply, all you need to do is choose the app you want to use from the options be
 > 
 > If you are an advanced user and you want to use custom patches for patching apps, you should read the [Wiki](../main/docs/Frequently%20Asked%20Questions.md#q-how-do-i-use-this-repository-for-patching-my-own-app).
 > 
+> This repository is not like any other repository. It does not create new releases; it only releases new files.
+> 
 > All the code is open-source, clearly, and the APK files used for patching are downloaded from a trusted site, so it is totally safe for you to use.
-
 ---
 <h1 align="center">
 Download
@@ -47,10 +48,6 @@ Download
 
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://play.google.com/store/apps/details?id=com.google.android.youtube)
 
-> [!IMPORTANT] 
-> A lite version is a version with unnecessary things removed. For example, it might only have an English interface and remove unused screen DPI from split APKs
->
-
 ### [Revanced:](https://github.com/revanced/revanced-patches)
 
 | [Stable version](https://github.com/ReVanced/revanced-patches/releases/latest) | [Beta version](https://github.com/ReVanced/revanced-patches/releases)            |
@@ -63,7 +60,9 @@ Download
 
 <details>
   <summary>Lite version</summary>
-  
+
+**A lite version is a version with unnecessary things removed. For example, it might only have an English interface and remove unused screen DPI from split APKs**
+
 | [Stable version](https://github.com/ReVanced/revanced-patches/releases/latest)      | [Beta version](https://github.com/ReVanced/revanced-patches/releases)                 |
 | ----------------------------------------------------------------------------------  | ------------------------------------------------------------------------------------- |
 | [Arm64-v8a](../../releases/download/all/youtube-lite-arm64-v8a-revanced.apk)        | [Arm64-v8a](../../releases/download/all/youtube-lite-beta-arm64-v8a-revanced.apk)     |
@@ -84,8 +83,8 @@ Download
 <details>
   <summary>Lite version</summary>
 
-Old patches, because latest patch not support split apks
-  
+**A lite version is a version with unnecessary things removed. For example, it might only have an English interface and remove unused screen DPI from split APKs**
+
 | [Stable version](https://github.com/inotia00/revanced-patches/releases/latest)               | [Beta version](https://github.com/inotia00/revanced-patches/releases)                          |
 | -------------------------------------------------------------------------------------------  | ---------------------------------------------------------------------------------------------- |
 | [Arm64-v8a](../../releases/download/all/youtube-lite-arm64-v8a-revanced-extended.apk)        | [Arm64-v8a](../../releases/download/all/youtube-lite-beta-arm64-v8a-revanced-extended.apk)     |
@@ -106,16 +105,18 @@ Old patches, because latest patch not support split apks
 <details>
   <summary>Lite version</summary>
 
-Old patches, because latest patch not support split apks
+**A lite version is a version with unnecessary things removed. For example, it might only have an English interface and remove unused screen DPI from split APKs**
   
 | [Stable version](https://github.com/anddea/revanced-patches/releases/latest)      | [Beta version](https://github.com/anddea/revanced-patches/releases)                 |
-| ----------------------------------------------------------------------------------  | ------------------------------------------------------------------------------------- |
+| --------------------------------------------------------------------------------  | ----------------------------------------------------------------------------------- |
 | [Arm64-v8a](../../releases/download/all/youtube-lite-arm64-v8a-anddea.apk)        | [Arm64-v8a](../../releases/download/all/youtube-lite-beta-arm64-v8a-anddea.apk)     |
 | [Armeabi-v7a](../../releases/download/all/youtube-lite-armeabi-v7a-anddea.apk)    | [Armeabi-v7a](../../releases/download/all/youtube-lite-beta-armeabi-v7a-anddea.apk) |
 
 </details>
 
 ### [Revanced Extended For Android 6 & 7:](https://github.com/kitadai31/revanced-patches-android6-7/tree/revanced-extended)
+
+**If you have any problems opening apps, follow the instructions [HERE](../main/docs/Frequently%20Asked%20Questions.md#q-youtube-android-67-cant-load-anyvideo)**
 
 [All Architectures](../../releases/download/all/youtube-revanced-extended-android-6-7.apk)
 
@@ -146,10 +147,12 @@ Old patches, because latest patch not support split apks
 
 ### [Revanced:](https://github.com/revanced/revanced-patches)
 
-| Stable version                                                                    | Beta version                                                                           |
+| [Stable version](https://github.com/ReVanced/revanced-patches/releases/latest)    | [Beta version](https://github.com/ReVanced/revanced-patches/releases)                  |
 | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | [Arm64-v8a](../../releases/download/all/youtube-music-arm64-v8a-revanced.apk)     | [Arm64-v8a](../../releases/download/all/youtube-music-beta-arm64-v8a-revanced.apk)     |
 | [Armeabi-v7a](../../releases/download/all/youtube-music-armeabi-v7a-revanced.apk) | [Armeabi-v7a](../../releases/download/all/youtube-music-beta-armeabi-v7a-revanced.apk) |
+| [x86](../../releases/download/all/youtube-music-x86-revanced.apk)                 | [x86](../../releases/download/all/youtube-music-beta-x86-revanced.apk)                 |
+| [x86_64](../../releases/download/all/youtube-music-x86_64-revanced.apk)           | [x86_64](../../releases/download/all/youtube-music-beta-x86_64-revanced.apk)           |
 
 ### [Revanced Extended:](https://github.com/inotia00/revanced-patches/)
 
@@ -157,17 +160,23 @@ Old patches, because latest patch not support split apks
 | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
 | [Arm64-v8a](../../releases/download/all/youtube-music-arm64-v8a-revanced-extended.apk)     | [Arm64-v8a](../../releases/download/all/youtube-music-beta-arm64-v8a-revanced-extended.apk)     |
 | [Armeabi-v7a](../../releases/download/all/youtube-music-armeabi-v7a-revanced-extended.apk) | [Armeabi-v7a](../../releases/download/all/youtube-music-beta-armeabi-v7a-revanced-extended.apk) |
+| [x86](../../releases/download/all/youtube-music-x86-revanced-extended.apk)                 | [x86](../../releases/download/all/youtube-music-beta-x86-revanced-extended.apk)                 |
+| [x86_64](../../releases/download/all/youtube-music-x86_64-revanced-extended.apk)           | [x86_64](../../releases/download/all/youtube-music-beta-x86_64-revanced-extended.apk)           |
 
 ### [Revanced Extended forked by anddea:](https://github.com/anddea/revanced-patches)
 
-| Stable version                                                                         | Beta version                                                                         |
+| [Stable version](https://github.com/anddea/revanced-patches/releases/latest)           | [Beta version](https://github.com/anddea/revanced-patches/releases)                  |
 | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | [Arm64-v8a](../../releases/download/all/youtube-music-stable-arm64-v8a-anddea.apk)     | [Arm64-v8a](../../releases/download/all/youtube-music-beta-arm64-v8a-anddea.apk)     |
 | [Armeabi-v7a](../../releases/download/all/youtube-music-stable-armeabi-v7a-anddea.apk) | [Armeabi-v7a](../../releases/download/all/youtube-music-beta-armeabi-v7a-anddea.apk) |
+| [x86](../../releases/download/all/youtube-music-stable-x86-anddea.apk)                 | [x86](../../releases/download/all/youtube-music-beta-x86-anddea.apk)                 |
+| [x86_64](../../releases/download/all/youtube-music-stable-x86_64-anddea.apk)           | [x86_64](../../releases/download/all/youtube-music-beta-x86_64-anddea.apk)           |
 
 ---
 
 [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)](https://play.google.com/store/apps/details?id=com.facebook.katana&hl)
+
+**You have to remove the Messenger app before you install the Facebook ReVanced**
 
 ### [Revanced:](https://github.com/revanced/revanced-patches)
 
@@ -225,11 +234,27 @@ Old patches, because latest patch not support split apks
 
 ---
 
+### [Spotjfy:](https://www.google.com/search?q=Spotjfy)
+
+### [Revanced](https://github.com/revanced/revanced-patches)
+
+#### ⚠️ Please read [WIKI](../main/docs/Frequently%20Asked%20Questions.md#q-what-is-spotjfy-and-how-can-i-download-it) before click download
+
+[Arm64-v8a](../../releases/download/all/spotjfy-arm64-v8a-revanced.apk)
+
+---
+
 [![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://play.google.com/store/apps/details?id=org.telegram.messenger)
 
 ### [Revanced Experiments:](https://github.com/Aunali321/ReVancedExperiments)
 
+CH play version:
+
 [Arm64-v8a](../../releases/download/all/telegram-revanced-experiments.apk)
+
+Web version:
+
+[All Architectures](../../releases/download/all/telegram-web-version-revanced-experiments.apk) 
 
 ---
 
@@ -238,9 +263,8 @@ Old patches, because latest patch not support split apks
 ### [Revanced:](https://github.com/revanced/revanced-patches)
 
 | Stable version                                                         | Beta version                                                                |
-| ---------------------------------------------------------------------- | -------------------------------------------------------------------------   | 
+| ---------------------------------------------------------------------- | -------------------------------------------------------------------------   |
 | [All Architectures](../../releases/download/all/tiktok-revanced.apk)   | [All Architectures](../../releases/download/all/tiktok-beta-revanced.apk)   |
-| [Arm64-v8a](../../releases/download/all/tiktok-arm64-v8a-revanced.apk) | [Arm64-v8a](../../releases/download/all/tiktok-beta-arm64-v8a-revanced.apk) |
 
 ---
 
@@ -297,13 +321,53 @@ Old patches, because latest patch not support split apks
 
 ---
 
+[![Duolingo](https://img.shields.io/badge/Duolingo-%234DC730.svg?style=for-the-badge&logo=Duolingo&logoColor=white)](https://play.google.com/store/apps/details?id=com.duolingo)
+
+### [Revanced:](https://github.com/revanced/revanced-patches)
+
+| Stable version                                                           | Beta version                                                                  |
+| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------   |
+| [All Architectures](../../releases/download/all/duolingo-revanced.apk)   | [All Architectures](../../releases/download/all/duolingo-beta-revanced.apk)   |
+
+---
+
+### [Google News:](play.google.com/store/apps/details?id=com.google.android.apps.magazines)
+
+### [Revanced:](https://github.com/revanced/revanced-patches)
+
+| Stable version                                                             | Beta version                                                                    |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| [Arm64-v8a](../../releases/download/all/googlenews-arm64-v8a-revanced.apk) | [Arm64-v8a](../../releases/download/all/googlenews-beta-arm64-v8a-revanced.apk) |
+
+---
+
+### [Photomath:](https://play.google.com/store/apps/details?id=com.microblink.photomath)
+
+### [Revanced:](https://github.com/revanced/revanced-patches)
+
+| Stable version                                                             | Beta version                                                                    |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| [All Architectures](../../releases/download/all/photomath-revanced.apk)    | [All Architectures](../../releases/download/all/photomath-beta-revanced.apk)    |
+
+---
+
 ### [RAR:](https://play.google.com/store/apps/details?id=com.rarlab.rar)
 
 ### [Revanced:](https://github.com/revanced/revanced-patches)
 
-| Stable version                                            | Beta version                                                   |
-| --------------------------------------------------------- | -------------------------------------------------------------- | 
-| [Arm64-v8a](../../releases/download/all/rar-revanced.apk) | [Arm64-v8a](../../releases/download/all/rar-beta-revanced.apk) |
+| Stable version                                                    | Beta version                                                           |
+| ----------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| [All Architectures](../../releases/download/all/rar-revanced.apk) | [All Architectures](../../releases/download/all/rar-beta-revanced.apk) |
+
+---
+
+### [Strava:](https://play.google.com/store/apps/details?id=com.strava)
+
+### [Revanced:](https://github.com/revanced/revanced-patches)
+
+| Stable version                                                         | Beta version                                                                |
+| ---------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| [Arm64-v8a](../../releases/download/all/strava-arm64-v8a-revanced.apk) | [Arm64-v8a](../../releases/download/all/strava-beta-arm64-v8a-revanced.apk) |
 
 ---
 
