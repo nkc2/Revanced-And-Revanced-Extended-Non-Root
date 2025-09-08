@@ -16,7 +16,6 @@ on:
         options:
           - 'Revanced'
           - 'Revanced Beta'
-          - 'Spotjfy'
           - 'Revanced Extended'
           - 'Revanced Extended Beta'
           - 'RVE-anddea-stable'
@@ -26,6 +25,7 @@ on:
           - 'Revanced Extended Android 6,7'
           - 'Revanced Extended Android 5'
           - 'BiliRoamingM'
+          - 'Scrazzz Patches'
           - 'Dropped Patches - indrastorms'
           - 'Revanced Experiments'
   workflow_call:
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        run: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        run: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        run: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        run: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
@@ -332,26 +332,6 @@ jobs:
         id: release-rve5
         if: steps.check-gh-rve5.outputs.internet_error == '0'
         uses: ./.github/actions/release
-  patch_Spotjfy:
-    name: Patch Spotjfy
-    if: ${{ github.event.inputs.org == 'Spotjfy' || inputs.org == 'Spotjfy' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4.2.2
-      - name: Preparing to patch
-        uses: ./.github/actions/preparing
-      - name: Check github connection
-        id: check-gh-spotjfy
-        run: bash src/etc/connection.sh
-      - name: Patch apk
-        id: patch-spotjfy
-        if: steps.check-gh-spotjfy.outputs.internet_error == '0'
-        run: bash src/build/Spotjfy.sh
-      - name: Releasing APK files
-        id: release-spotjfy
-        if: steps.check-gh-spotjfy.outputs.internet_error == '0'
-        uses: ./.github/actions/release
   patch_BiliRoamingM:
     name: Patch BiliRoamingM
     if: ${{ github.event.inputs.org == 'BiliRoamingM' || inputs.org == 'BiliRoamingM' }}
@@ -371,6 +351,26 @@ jobs:
       - name: Releasing APK files
         id: release-BiliRoamingM
         if: steps.check-gh-BiliRoamingM.outputs.internet_error == '0'
+        uses: ./.github/actions/release
+  patch_scrazzz_Patches:
+    name: Scrazzz Patches Revanced
+    if: ${{ github.event.inputs.org == 'Scrazzz Patches' || inputs.org == 'Scrazzz Patches' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+      - name: Preparing to patch
+        uses: ./.github/actions/preparing
+      - name: Check github connection
+        id: check-gh-scrazzz-patches
+        run: bash src/etc/connection.sh
+      - name: Patch apk
+        id: patch-scrazzz-patches
+        if: steps.check-gh-scrazzz-patches.outputs.internet_error == '0'
+        run: bash src/build/scrazzz-revanced.sh
+      - name: Releasing APK files
+        id: release-scrazzz-patches
+        if: steps.check-gh-scrazzz-patches.outputs.internet_error == '0'
         uses: ./.github/actions/release
   patch_Dropped_Patches:
     name: Dropped Patches Revanced - indrastorms

@@ -1,5 +1,5 @@
 #!/bin/bash
-# ReVanced Experiments  build 
+# ReVanced Experiments build 
 source src/build/utils.sh
 
 #################################################

@@ -52,42 +52,49 @@ revanced_dl(){
 	patch "gg-photos-arm64-v8a" "revanced"
 	# Armeabi-v7a
 	get_patches_key "gg-photos"
+ 	version="7.32.0.765953717"
 	get_apk "com.google.android.apps.photos" "gg-photos-armeabi-v7a" "photos" "google-inc/photos/google-photos" "armeabi-v7a" "nodpi"
 	patch "gg-photos-armeabi-v7a" "revanced"
+	# x86
+	get_patches_key "gg-photos"
+ 	version="7.32.0.765953717"
+	get_apk "com.google.android.apps.photos" "gg-photos-x86" "photos" "google-inc/photos/google-photos" "x86" "nodpi"
+	patch "gg-photos-x86" "revanced"
+	# x86_64
+	get_patches_key "gg-photos"
+ 	version="7.32.0.765953717"
+	get_apk "com.google.android.apps.photos" "gg-photos-x86_64" "photos" "google-inc/photos/google-photos" "x86_64" "nodpi"
+	patch "gg-photos-x86_64" "revanced"
 }
 4() {
 	revanced_dl
 	# Patch Tiktok:
 	get_patches_key "tiktok"
-	url="https://tiktok.en.uptodown.com/android/download/1032081983" #Use uptodown because apkmirror ban tiktok in US lead github action can't download apk file
+	url="https://tiktok.en.uptodown.com/android/download/1026195874-x" #Use uptodown because apkmirror ban tiktok in US lead github action can't download apk file
 	url="https://dw.uptodown.com/dwn/$(req "$url" - | $pup -p --charset utf-8 'button#detail-download-button attr{data-url}')"
 	req "$url" "tiktok.apk"
 	patch "tiktok" "revanced"
 	# Patch Instagram:
 	# Arm64-v8a
 	get_patches_key "instagram"
-	version="370.1.0.43.96" #https://github.com/ReVanced/revanced-patches/issues/4584
-	get_apk "com.instagram.android" "instagram-arm64-v8a" "instagram-instagram" "instagram/instagram-instagram/instagram" "arm64-v8a" "nodpi"
+ 	get_apkpure "com.instagram.android" "instagram-arm64-v8a" "instagram-android/com.instagram.android" "Bundle"
 	patch "instagram-arm64-v8a" "revanced"
 }
 5() {
 	revanced_dl
 	# Patch Pixiv:
 	get_patches_key "pixiv"
-	version="6.134.1" #https://github.com/ReVanced/revanced-patches/issues/4477
 	get_apk "jp.pxv.android" "pixiv" "pixiv" "pixiv-inc/pixiv/pixiv"
 	patch "pixiv" "revanced"
 	# Patch Twitch:
 	get_patches_key "twitch"
-	#get_apk "tv.twitch.android.app" "twitch" "twitch" "twitch-interactive-inc/twitch/twitch" "Bundle_extract"
-	#split_editor "twitch" "twitch"
-	version="19.1.0" #https://github.com/orgs/ReVanced/discussions/1135#discussioncomment-11797007
- 	get_apk "tv.twitch.android.app" "twitch" "twitch" "twitch-interactive-inc/twitch/twitch"
+	get_apk "tv.twitch.android.app" "twitch" "twitch" "twitch-interactive-inc/twitch/twitch-live-streaming" "Bundle_extract"
+	split_editor "twitch" "twitch"
 	patch "twitch" "revanced"
 	# Patch Twitch Arm64-v8a:
-	#get_patches_key "twitch"
-	#split_editor "twitch" "twitch-arm64-v8a" "exclude" "split_config.armeabi_v7a split_config.x86 split_config.x86_64"
-	#patch "twitch-arm64-v8a" "revanced"
+	get_patches_key "twitch"
+	split_editor "twitch" "twitch-arm64-v8a" "exclude" "split_config.armeabi_v7a split_config.x86 split_config.x86_64"
+	patch "twitch-arm64-v8a" "revanced"
 }
 6() {
 	revanced_dl
@@ -118,7 +125,7 @@ revanced_dl(){
 	patch "rar" "revanced"
 	# Patch Lightroom:
 	#get_patches_key "lightroom"
-  	#version="9.2.0"
+  	#version="10.0.2"
 	#get_apk "com.adobe.lrmobile" "lightroom" "lightroom" "adobe/lightroom/lightroom"
 	#patch "lightroom" "revanced"
 }
@@ -179,6 +186,15 @@ revanced_dl(){
 	get_apkpure "com.strava" "strava-arm64-v8a" "strava-run-hike-2025-health/com.strava" "Bundle"
 	patch "strava-arm64-v8a" "revanced"
 }
+12() {
+	revanced_dl
+	# Patch Spotjfy Arm64-v8a
+	get_patches_key "Spotjfy-revanced"
+	j="i"
+ 	version="9.0.64.107" #https://github.com/ReVanced/revanced-patches/issues/5537#issuecomment-3134402120
+	get_apkpure "com.spot"$j"fy.music" "spotjfy-arm64-v8a" "spot"$j"fy-music-and-podcasts-for-android/com.spot"$j"fy.music"
+	patch "spotjfy-arm64-v8a" "revanced"
+}
 case "$1" in
     1)
         1
@@ -212,5 +228,8 @@ case "$1" in
         ;;
     11)
         11
+        ;;
+    12)
+        12
         ;;
 esac
