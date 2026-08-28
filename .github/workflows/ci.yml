@@ -1,14 +1,10 @@
-name: Check new patch
+name: 2. Check new patch
 permissions: write-all
 on:
   schedule:
     - cron: "0 9 * * *"
   workflow_dispatch:
-    inputs:
-      retry_count:
-        description: 'Do not change value below'
-        required: false
-        default: '1'
+
 jobs:
   check:
     name: Check new patch
@@ -17,22 +13,18 @@ jobs:
       repository: ${{ github.repository }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v6.0.2
       - name: Check github connection
         id: check-gh
         run: bash src/etc/connection.sh
-      - name: Check new patch ReVanced
-        id: check-rv
+      - name: Check new patch Morphe
+        id: check-morphe
         if: steps.check-gh.outputs.internet_error == '0'
-        run: bash src/etc/ci.sh ReVanced/revanced-patches latest youtube-revanced.apk
-      - name: Check new patch ReVanced Beta
-        id: check-rv-beta
+        run: bash src/etc/ci.sh MorpheApp/morphe-patches latest youtube-morphe.apk
+      - name: Check new patch Morphe Beta
+        id: check-morphe-beta
         if: steps.check-gh.outputs.internet_error == '0'
-        run: bash src/etc/ci.sh ReVanced/revanced-patches prerelease youtube-beta-revanced.apk
-      - name: Check new patch Spotjfy
-        id: check-spotjfy
-        if: steps.check-gh.outputs.internet_error == '0'
-        run: bash src/etc/ci.sh ReVanced/revanced-patches latest spotjfy-arm64-v8a-revanced.apk
+        run: bash src/etc/ci.sh MorpheApp/morphe-patches prerelease youtube-beta-morphe.apk
       - name: Check new patch Revanced Extended forked by Anddea Stable Version
         id: check-rve-anddea-stable
         if: steps.check-gh.outputs.internet_error == '0'
@@ -41,14 +33,6 @@ jobs:
         id: check-rve-anddea-beta
         if: steps.check-gh.outputs.internet_error == '0'
         run: bash src/etc/ci.sh anddea/revanced-patches prerelease youtube-beta-anddea.apk
-      - name: Check new patch Revanced Extended
-        id: check-rve
-        if: steps.check-gh.outputs.internet_error == '0'
-        run: bash src/etc/ci.sh inotia00/revanced-patches latest youtube-revanced-extended.apk
-      - name: Check new patch Revanced Extended Beta
-        id: check-rve-beta
-        if: steps.check-gh.outputs.internet_error == '0'
-        run: bash src/etc/ci.sh inotia00/revanced-patches prerelease youtube-beta-revanced-extended.apk
       - name: Check new patch Twitter Piko Stable
         id: check-twitter-piko-stable
         if: steps.check-gh.outputs.internet_error == '0'
@@ -57,14 +41,38 @@ jobs:
         id: check-twitter-piko-beta
         if: steps.check-gh.outputs.internet_error == '0'
         run: bash src/etc/ci.sh crimera/piko prerelease twitter-beta-piko.apk
-      - name: Check new patch Revanced For Android 6 & 7
-        id: check-rve67
+      - name: Check new patch DeReVanced
+        id: check-derv
         if: steps.check-gh.outputs.internet_error == '0'
-        run: bash src/etc/ci.sh kitadai31/revanced-patches-android6-7 latest youtube-revanced-extended-android-6-7.apk
-      - name: Check new patch Revanced For Android 5
-        id: check-rve5
+        run: bash src/etc/ci.sh RookieEnough/De-ReVanced latest gg-photos-arm64-v8a-derevanced.apk
+      - name: Check new patch Paresh
+        id: check-paresh
         if: steps.check-gh.outputs.internet_error == '0'
-        run: bash src/etc/ci.sh d4n3436/revanced-patches-android5 latest youtube-revanced-extended-android-5.apk
+        run: bash src/etc/_ci.sh Paresh-Maheshwari/paresh-patches latest telegram-web-version-paresh.apk
+      - name: Check new patch hoo-dles
+        id: check-hoo-dles
+        if: steps.check-gh.outputs.internet_error == '0'
+        run: bash src/etc/ci.sh hoo-dles/morphe-patches latest protonvpn-hoo-dles.apk
+      - name: Check new patch bufferk
+        id: check-bufferk
+        if: steps.check-gh.outputs.internet_error == '0'
+        run: bash src/etc/ci.sh bufferk/morphe-patches latest brave-browser-arm64-v8a-bufferk.apk
+      - name: Check new patch arandomhooman
+        id: check-arandomhooman
+        if: steps.check-gh.outputs.internet_error == '0'
+        run: bash src/etc/ci.sh arandomhooman/hoomans-morphe-patches latest twitch-arandomhooman.apk
+      - name: Check new patch rushiranpise
+        id: check-rushiranpise
+        if: steps.check-gh.outputs.internet_error == '0'
+        run: bash src/etc/ci.sh rushiranpise/morphe-patches latest adguard-rushiranpise.apk
+      - name: Check new patch icysymmetra
+        id: check-icysymmetra
+        if: steps.check-gh.outputs.internet_error == '0'
+        run: bash src/etc/ci.sh icysymmetra/tiktok-patches-for-morphe latest tiktok-icysymmetra.apk
+      - name: Check new patch docbt
+        id: check-docbt
+        if: steps.check-gh.outputs.internet_error == '0'
+        run: bash src/etc/ci.sh docbt/patched-up latest googlenews-docbt.apk
       - name: Check new patch BiliRoamingM
         id: check-BiliRoamingM
         if: steps.check-gh.outputs.internet_error == '0'
@@ -72,71 +80,47 @@ jobs:
       - name: Check new patch Revanced Experiments
         id: check-Revanced-Experiments
         if: steps.check-gh.outputs.internet_error == '0'
-        run: bash src/etc/ci.sh Aunali321/ReVancedExperiments latest telegram-revanced-experiments.apk 
-      - name: Re-run workflow if github connection not stable
-        if: always() && steps.check-rv.outcome == 'skipped' && env.retry_count < env.max_retries
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const maxRetries = ${{ env.max_retries }};
-            let retryCount = ${{ env.retry_count }};
-            if (retryCount < maxRetries) {
-              retryCount += 1;
-              await github.rest.actions.createWorkflowDispatch({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                workflow_id: "ci.yml",
-                ref: context.ref,
-                inputs: {
-                  'retry_count': String(retryCount)
-                }
-              });
-            }
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          retry_count: ${{ github.event.inputs.retry_count }}
-          max_retries: 3
+        run: bash src/etc/ci.sh Aunali321/ReVancedExperiments latest telegram-revanced-experiments.apk
     outputs:
-      check_rv: ${{ steps.check-rv.outputs.new_patch }}
-      check_rv_beta: ${{ steps.check-rv-beta.outputs.new_patch }}
-      check_spotjfy: ${{ steps.check-spotjfy.outputs.new_patch }}
+      check_morphe: ${{ steps.check-morphe.outputs.new_patch }}
+      check_morphe_beta: ${{ steps.check-morphe-beta.outputs.new_patch }}
       check_rve_anddea_stable: ${{ steps.check-rve-anddea-stable.outputs.new_patch }}
       check_rve_anddea_beta: ${{ steps.check-rve-anddea-beta.outputs.new_patch }}
-      check_rve: ${{ steps.check-rve.outputs.new_patch }}
-      check_rve_beta: ${{ steps.check-rve-beta.outputs.new_patch }}
       check_twitter_piko_stable: ${{ steps.check-twitter-piko-stable.outputs.new_patch }}
       check_twitter_piko_beta: ${{ steps.check-twitter-piko-beta.outputs.new_patch }}
-      check_rve67: ${{ steps.check-rve67.outputs.new_patch }}
-      check_rve5: ${{ steps.check-rve5.outputs.new_patch }}
+      check_derv: ${{ steps.check-derv.outputs.new_patch }}
+      check_paresh: ${{ steps.check-paresh.outputs.new_patch }}
+      check_hoo_dles: ${{ steps.check-hoo-dles.outputs.new_patch }}
+      check_bufferk: ${{ steps.check-bufferk.outputs.new_patch }}
+      check_arandomhooman: ${{ steps.check-arandomhooman.outputs.new_patch }}
+      check_rushiranpise: ${{ steps.check-rushiranpise.outputs.new_patch }}
+      check_icysymmetra: ${{ steps.check-icysymmetra.outputs.new_patch }}
+      check_docbt: ${{ steps.check-docbt.outputs.new_patch }}
       check_BiliRoamingM: ${{ steps.check-BiliRoamingM.outputs.new_patch }}
       check_Revanced_Experiments: ${{ steps.check-Revanced-Experiments.outputs.new_patch }}
 
-  Patch-Revanced:
-    name: Patch Revanced Stable
+  Patch-Morphe:
+    name: Patch Morphe
     needs: check
-    if: ${{ needs.check.outputs.check_rv == 1 }}
+    if: ${{ needs.check.outputs.check_morphe == 1 }}
     uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
     with:
-      org: "Revanced"
-  Patch-Revanced-Beta:
-    name: Patch Revanced Beta
+      org: "Morphe"
+  Patch-Morphe-Beta:
+    name: Patch Morphe Beta
     needs: check
-    if: ${{ needs.check.outputs.check_rv_beta == 1 }}
+    if: ${{ needs.check.outputs.check_morphe_beta == 1 }}
     uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
     with:
-      org: "Revanced Beta"
-  Patch-Spotjfy:
-    name: Patch Spotjfy
-    needs: check
-    if: ${{ needs.check.outputs.check_spotjfy == 1 }}
-    uses: ./.github/workflows/manual-patch.yml
-    with:
-      org: "Spotjfy"
+      org: "Morphe Beta"
   Patch-RVE-anddea-stable:
     name: Patch RVX Anddea Stable
     needs: check
     if: ${{ needs.check.outputs.check_rve_anddea_stable == 1 }}
     uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
     with:
       org: "RVE-anddea-stable"
   Patch-RVE-anddea-beta:
@@ -144,27 +128,15 @@ jobs:
     needs: check
     if: ${{ needs.check.outputs.check_rve_anddea_beta == 1 }}
     uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
     with:
       org: "RVE-anddea-beta"
-  Patch-Revanced-Extended:
-    name: Patch Revanced Extended
-    needs: check
-    if: ${{ needs.check.outputs.check_rve == 1 }}
-    uses: ./.github/workflows/manual-patch.yml
-    with:
-      org: "Revanced Extended"
-  Patch-Revanced-Extended-Beta:
-    name: Patch Revanced Extended Beta
-    needs: check
-    if: ${{ needs.check.outputs.check_rve_beta == 1 }}
-    uses: ./.github/workflows/manual-patch.yml
-    with:
-      org: "Revanced Extended Beta"
   Patch-Twitter-Piko-Stable:
     name: Patch Twitter Piko Stable
     needs: check
     if: ${{ needs.check.outputs.check_twitter_piko_stable == 1 }}
     uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
     with:
       org: "Twitter Piko Stable"
   Patch-Twitter-Piko-Beta:
@@ -172,27 +144,80 @@ jobs:
     needs: check
     if: ${{ needs.check.outputs.check_twitter_piko_beta == 1 }}
     uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
     with:
       org: "Twitter Piko Beta"
-  Patch-Revanced-Extended-For-Android-6-7:
-    name: Patch RVX Android 6 & 7
+
+  Patch-DeRevanced:
+    name: Patch DeRevanced Stable
     needs: check
-    if: ${{ needs.check.outputs.check_rve67 == 1 }}
+    if: ${{ needs.check.outputs.check_derv == 1 }}
     uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
     with:
-      org: "Revanced Extended Android 6,7"
-  Patch-Revanced-Extended-For-Android-5:
-    name: Patch RVX Android 5
+      org: "DeRevanced"
+  Patch-Paresh:
+    name: Patch Paresh
     needs: check
-    if: ${{ needs.check.outputs.check_rve5 == 1 }}
+    if: ${{ needs.check.outputs.check_paresh == 1 }}
     uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
     with:
-      org: "Revanced Extended Android 5"
+      org: "Paresh"
+  Patch-hoo-dles:
+    name: Patch hoo-dles
+    needs: check
+    if: ${{ needs.check.outputs.check_hoo_dles == 1 }}
+    uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
+    with:
+      org: "hoo-dles"
+  Patch-bufferk:
+    name: Patch bufferk
+    needs: check
+    if: ${{ needs.check.outputs.check_bufferk == 1 }}
+    uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
+    with:
+      org: "bufferk"
+  Patch-arandomhooman:
+    name: Patch arandomhooman
+    needs: check
+    if: ${{ needs.check.outputs.check_arandomhooman == 1 }}
+    uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
+    with:
+      org: "arandomhooman"
+  Patch-rushiranpise:
+    name: Patch rushiranpise
+    needs: check
+    if: ${{ needs.check.outputs.check_rushiranpise == 1 }}
+    uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
+    with:
+      org: "rushiranpise"
+  Patch-icysymmetra:
+    name: Patch icysymmetra
+    needs: check
+    if: ${{ needs.check.outputs.check_icysymmetra == 1 }}
+    uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
+    with:
+      org: "icysymmetra"
+  Patch-docbt:
+    name: Patch docbt
+    needs: check
+    if: ${{ needs.check.outputs.check_docbt == 1 }}
+    uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
+    with:
+      org: "docbt"
   Patch-BiliRoamingM:
     name: Patch BiliRoamingM
     needs: check
     if: ${{ needs.check.outputs.check_BiliRoamingM == 1 }}
     uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
     with:
       org: "BiliRoamingM"
   Patch-Revanced-Experiments:
@@ -200,5 +225,6 @@ jobs:
     needs: check
     if: ${{ needs.check.outputs.check_Revanced_Experiments == 1 }}
     uses: ./.github/workflows/manual-patch.yml
+    secrets: inherit
     with:
       org: "Revanced Experiments"
